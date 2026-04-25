@@ -1,0 +1,58 @@
+<Window x:Class="GUI.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="הגדרות ועדכון נתונים" Height="650" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" Background="#F4F6F9" Loaded="Window_Loaded">
+    
+    <Window.Resources>
+        <!-- Similar styling to other windows -->
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="40"/>
+        </Style>
+    </Window.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Border Background="White" CornerRadius="8" Padding="20">
+            <Border.Effect>
+                <DropShadowEffect Color="Gray" BlurRadius="5" Direction="270" ShadowDepth="2" Opacity="0.2"/>
+            </Border.Effect>
+            
+            <StackPanel FlowDirection="RightToLeft">
+                <TextBlock Text="עריכת הפרופיל (שם והגדרות)" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+                <TextBlock Text="שם משתמש:" FontWeight="SemiBold" Foreground="#34495E" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtUsername"/>
+
+                <TextBlock Text="אימייל:" FontWeight="SemiBold" Foreground="#34495E" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtEmail"/>
+
+                <TextBlock Text="סיסמה חדשה (השאר ריק כדי לא לשנות):" FontWeight="SemiBold" Foreground="#34495E" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtPassword" />
+
+                <TextBlock Text="יעד משימות יומי:" FontWeight="SemiBold" Foreground="#34495E" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtGoal" />
+
+                <TextBlock Text="בחר צבע למערכת:" FontWeight="SemiBold" Foreground="#34495E" Margin="0,10,0,5"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+                    <Button Width="40" Height="40" Background="#3498db" Margin="5" Click="ChangeTheme_Click" Tag="#3498db" BorderThickness="0"/>
+                    <Button Width="40" Height="40" Background="#2ecc71" Margin="5" Click="ChangeTheme_Click" Tag="#2ecc71" BorderThickness="0"/>
+                    <Button Width="40" Height="40" Background="#e67e22" Margin="5" Click="ChangeTheme_Click" Tag="#e67e22" BorderThickness="0"/>
+                    <Button Width="40" Height="40" Background="#9b59b6" Margin="5" Click="ChangeTheme_Click" Tag="#9b59b6" BorderThickness="0"/>
+                    <Button Width="40" Height="40" Background="#34495e" Margin="5" Click="ChangeTheme_Click" Tag="#34495e" BorderThickness="0"/>
+                </StackPanel>
+
+                <Button x:Name="btnSave" Content="שמור שינויים" Click="btnSave_Click" Margin="0,10,0,0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+    </ScrollViewer>
+</Window>

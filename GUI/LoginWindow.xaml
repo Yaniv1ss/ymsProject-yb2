@@ -1,0 +1,85 @@
+<Window x:Class="GUI.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="התחברות למערכת משוב" Height="500" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+    <Border CornerRadius="15" Margin="10">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#74ebd5" Offset="0.0" />
+                <GradientStop Color="#ACB6E5" Offset="1.0" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="20" ShadowDepth="5" Opacity="0.4" Direction="270" Color="Black"/>
+        </Border.Effect>
+        <Grid>
+            <!-- Close Button Custom Template -->
+            <Button Content="✕" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,15,0,0" Width="30" Height="30" Background="Transparent" Foreground="White" FontSize="18" Click="btnClose_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent">
+                            <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Border Width="400" Margin="0,50" Background="White" CornerRadius="15" Padding="30" VerticalAlignment="Center">
+                    <Border.Effect>
+                        <DropShadowEffect Color="Gray" BlurRadius="15" Direction="270" ShadowDepth="5" Opacity="0.3"/>
+                    </Border.Effect>
+
+                    <StackPanel>
+                        <!-- Logo / Title -->
+                        <TextBlock Text="🏫" FontSize="40" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBlock Text="ברוך הבא למערכת" FontSize="26" FontWeight="Bold" Foreground="#2c3e50" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                        <TextBlock Text="ניהול זמן ולימודים חכם" FontSize="14" Foreground="#7f8c8d" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+
+                        <!-- Input Fields -->
+                        <TextBlock Text="שם משתמש" FontWeight="SemiBold" Foreground="#34495e" Margin="0,0,0,5" FlowDirection="RightToLeft"/>
+                        <TextBox x:Name="txtUsername"/>
+
+                        <TextBlock Text="סיסמה" FontWeight="SemiBold" Foreground="#34495e" Margin="10,10,0,5" FlowDirection="RightToLeft"/>
+                        <PasswordBox x:Name="txtPassword" Height="45" Margin="0,5,0,20">
+                            <PasswordBox.Template>
+                                <ControlTemplate TargetType="PasswordBox">
+                                    <Border x:Name="border" Background="White" BorderBrush="#ecf0f1" BorderThickness="2" CornerRadius="6">
+                                        <ScrollViewer x:Name="PART_ContentHost" FlowDirection="RightToLeft"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </PasswordBox.Template>
+                        </PasswordBox>
+
+                        <Button x:Name="btnLogin" Content="התחברות" Height="45" Margin="0,0,0,10" Click="btnLogin_Click"/>
+                        <Button x:Name="btnRegister" Content="יצירת חשבון חדש (הרשמה)" Height="45" Background="#2ecc71" Margin="0,0,0,10" Click="btnRegister_Click"/>
+                        <Button x:Name="btnAdminQuick" Content="כניסת אדמין (קוד סודי)" Height="45" Background="#e67e22" Margin="0,0,0,15" Click="btnAdminLogin_Click"/>
+                    </StackPanel>
+                </Border>
+            </ScrollViewer>
+
+            <!-- Admin Code Overlay -->
+            <Border x:Name="AdminCodeOverlay" Background="#99000000" Visibility="Collapsed">
+                <Border Width="300" Height="200" Background="White" CornerRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="הזן קוד אדמין סודי" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                        <PasswordBox x:Name="txtAdminCode" Height="40" Margin="0,0,0,20" VerticalContentAlignment="Center" Background="#f9f9f9"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="בטל" Width="80" Margin="5" Background="#bdc3c7" Click="btnCancelAdmin_Click"/>
+                            <Button Content="כניסה" Width="80" Margin="5" Background="#e67e22" Click="btnConfirmAdmin_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

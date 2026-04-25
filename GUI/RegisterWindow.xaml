@@ -1,0 +1,95 @@
+<Window x:Class="GUI.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="הרשמה למשוב" Height="600" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+    
+    <Border CornerRadius="15" Margin="10">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#00b09b" Offset="0.0" />
+                <GradientStop Color="#96c93d" Offset="1.0" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="20" ShadowDepth="5" Opacity="0.4" Direction="270" Color="Black"/>
+        </Border.Effect>
+
+        <Grid>
+            <Button Content="✕" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,15,0,0" Width="30" Height="30" Background="Transparent" Foreground="White" FontSize="18" Click="btnClose_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent">
+                            <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Border Background="#EeFFFFFF" CornerRadius="15" Margin="30,50,30,30" Padding="25">
+                <Grid>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel FlowDirection="RightToLeft">
+                            <!-- Title -->
+                            <TextBlock Text="יצירת משתמש חדש" FontSize="24" FontWeight="ExtraBold" Foreground="#2c3e50" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+                            <!-- Inputs -->
+                            <TextBlock Text="שם משתמש (כינוי):" FontWeight="SemiBold" Foreground="#34495e" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtUsername" Height="40" Margin="0,0,0,10"/>
+
+                            <TextBlock Text="כתובת אימייל:" FontWeight="SemiBold" Foreground="#34495e" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtEmail" Height="40" Margin="0,0,0,10"/>
+
+                            <TextBlock Text="סיסמה:" FontWeight="SemiBold" Foreground="#34495e" Margin="0,0,0,5"/>
+                            <PasswordBox x:Name="txtPassword" Height="40" Margin="0,0,0,10">
+                                <PasswordBox.Template>
+                                    <ControlTemplate TargetType="PasswordBox">
+                                        <Border x:Name="border" Background="White" BorderBrush="#ecf0f1" BorderThickness="2" CornerRadius="6">
+                                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsFocused" Value="True">
+                                                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </PasswordBox.Template>
+                            </PasswordBox>
+
+                            <TextBlock Text="יעד ממוצע ציונים השנה:" FontWeight="SemiBold" Foreground="#34495e" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtGoal" Height="40" Margin="0,0,0,25" Text="85"/>
+
+                            <!-- Buttons -->
+                            <Button x:Name="btnRegister" Content="תרשום אותי!" Height="45" Margin="0,0,0,10" Click="btnRegister_Click"/>
+                            
+                            <TextBlock HorizontalAlignment="Center" Margin="0,5">
+                                <Hyperlink Click="btnBackToLogin_Click" Foreground="#7f8c8d" TextDecorations="None" FontWeight="Medium">כבר יש לך חשבון? חזור להתחברות</Hyperlink>
+                            </TextBlock>
+                            
+                            <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10">
+                                <Hyperlink Click="btnAdminLogin_Click" Foreground="#e67e22" TextDecorations="None" FontWeight="Bold">כניסת אדמין מהירה (קוד סודי)</Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- Admin Code Overlay -->
+                    <Border x:Name="AdminCodeOverlay" Background="#99000000" Visibility="Collapsed" Margin="-25">
+                        <Border Width="280" Height="180" Background="White" CornerRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="20">
+                            <StackPanel>
+                                <TextBlock Text="הזן קוד אדמין סודי" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                                <PasswordBox x:Name="txtAdminCode" Height="35" Margin="0,0,0,15" VerticalContentAlignment="Center" Background="#f9f9f9"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Content="בטל" Width="70" Margin="5" Background="#bdc3c7" Click="btnCancelAdmin_Click"/>
+                                    <Button Content="כניסה" Width="70" Margin="5" Background="#e67e22" Click="btnConfirmAdmin_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

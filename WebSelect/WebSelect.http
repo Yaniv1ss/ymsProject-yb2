@@ -1,0 +1,6 @@
+@WebSelect_HostAddress = http://localhost:5243
+
+GET {{WebSelect_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

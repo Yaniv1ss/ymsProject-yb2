@@ -1,0 +1,76 @@
+<Window x:Class="GUI.ScheduleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="עריכת מערכת שעות" Height="500" Width="600" WindowStartupLocation="CenterScreen" Background="#F4F6F9" Loaded="Window_Loaded">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Margin="0,0,0,15">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button x:Name="btnBack" Content="חזרה" Background="{DynamicResource PrimaryBrush}" Click="btnBack_Click" Padding="15,5" Margin="0,0,5,0"/>
+                <Button x:Name="btnManageSubjects" Content="ניהול מקצועות" Background="{DynamicResource PrimaryBrush}" Click="btnManageSubjects_Click" Padding="15,5"/>
+            </StackPanel>
+            <TextBlock Text="מערכת השעות שלי" FontSize="24" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        </Grid>
+
+        <DataGrid x:Name="dgSchedule" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" FlowDirection="RightToLeft" RowHeight="30" SelectionChanged="dgSchedule_SelectionChanged" Background="White">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="יום בשבוע" Binding="{Binding Day_of_the_week}" Width="*"/>
+                <DataGridTextColumn Header="שעה" Binding="{Binding Hour}" Width="80"/>
+                <DataGridTextColumn Header="מקצוע" Binding="{Binding Subject_id.Subject_name}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border Grid.Row="2" Background="White" CornerRadius="8" Padding="15" Margin="0,15,0,0">
+            <Grid FlowDirection="RightToLeft">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                    <TextBlock Text="יום:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="cmbDay">
+                        <ComboBoxItem Content="ראשון"/>
+                        <ComboBoxItem Content="שני"/>
+                        <ComboBoxItem Content="שלישי"/>
+                        <ComboBoxItem Content="רביעי"/>
+                        <ComboBoxItem Content="חמישי"/>
+                        <ComboBoxItem Content="שישי"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="0,0,10,0">
+                    <TextBlock Text="שעה:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="cmbHour">
+                        <ComboBoxItem Content="1"/>
+                        <ComboBoxItem Content="2"/>
+                        <ComboBoxItem Content="3"/>
+                        <ComboBoxItem Content="4"/>
+                        <ComboBoxItem Content="5"/>
+                        <ComboBoxItem Content="6"/>
+                        <ComboBoxItem Content="7"/>
+                        <ComboBoxItem Content="8"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Margin="0,0,10,0">
+                    <TextBlock Text="מקצוע:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="cmbSubject" DisplayMemberPath="Subject_name" SelectedValuePath="Id"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Bottom">
+                    <Button x:Name="btnAdd" Content="הוסף למערכת" Background="#2ECC71" Foreground="White" Padding="10,5" Margin="0,0,5,0" Click="btnAdd_Click"/>
+                    <Button x:Name="btnDelete" Content="מחק נבחר" Background="#E74C3C" Foreground="White" Padding="10,5" Click="btnDelete_Click" IsEnabled="False"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

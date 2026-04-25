@@ -1,0 +1,107 @@
+<Window x:Class="GUI.ExamsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="המבחנים שלי" Height="650" Width="900" WindowStartupLocation="CenterScreen" Background="#F4F6F9" Loaded="Window_Loaded">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="0,0,0,15">
+            <Button x:Name="btnBack" Content="חזרה" HorizontalAlignment="Left" Background="#7f8c8d" Click="btnBack_Click" Padding="15,5"/>
+            <TextBlock Text="ניהול מבחנים וציונים" FontSize="24" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        </Grid>
+
+        <!-- Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- צד שמאל: רשימת מבחנים ועדכון ציון -->
+            <Border Grid.Column="0" Background="White" CornerRadius="8" Padding="20" Margin="0,0,10,0">
+                <Grid FlowDirection="RightToLeft">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Text="המבחנים שלי" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Foreground="{DynamicResource PrimaryBrush}"/>
+                    
+                    <DataGrid x:Name="dgExams" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" SelectionChanged="dgExams_SelectionChanged" Margin="0,0,0,15">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="מקצוע" Binding="{Binding Subject_id.Subject_name}" Width="100"/>
+                            <DataGridTextColumn Header="נושא/כותרת" Binding="{Binding Title}" Width="*"/>
+                            <DataGridTextColumn Header="תאריך" Binding="{Binding Exam_date}" Width="100"/>
+                            <DataGridTextColumn Header="ציון" Binding="{Binding Grade}" Width="60"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Border Grid.Row="2" Background="#f8f9f9" Padding="10" CornerRadius="5">
+                        <StackPanel>
+                            <TextBlock Text="עדכון ציון למבחן נבחר:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="txtGrade" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <Button x:Name="btnUpdateGrade" Grid.Column="1" Content="עדכן ציון" Background="{DynamicResource SecondaryBrush}" Click="btnUpdateGrade_Click" IsEnabled="False" Margin="0,0,5,0"/>
+                                <Button x:Name="btnDeleteExam" Grid.Column="2" Content="מחק מבחן" Background="#e74c3c" Foreground="White" Click="btnDeleteExam_Click" IsEnabled="False"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- צד ימין: סטטיסטיקה והוספת מבחנים -->
+            <StackPanel Grid.Column="1" Margin="10,0,0,0" FlowDirection="RightToLeft">
+                
+                <!-- סטטיסטיקה ויעדים -->
+                <Border Background="White" CornerRadius="8" Padding="15" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="סטטיסטיקת ציונים" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="{DynamicResource PrimaryBrush}"/>
+                        
+                        <TextBlock Text="ממוצע הציונים שלי:" FontWeight="SemiBold"/>
+                        <TextBlock x:Name="txtAverage" Text="0" FontSize="36" FontWeight="Bold" Foreground="{DynamicResource SecondaryBrush}" Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="יעד ממוצע ציונים:" FontWeight="SemiBold"/>
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtGradeGoal" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <Button x:Name="btnUpdateGoal" Grid.Column="1" Content="שמור יעד" Background="{DynamicResource PrimaryBrush}" Click="btnUpdateGoal_Click"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- הוספת מבחן חדש -->
+                <Border Background="White" CornerRadius="8" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="הוספת מבחן חדש" FontSize="18" FontWeight="Bold" Margin="0,0,0,15" Foreground="{DynamicResource PrimaryBrush}"/>
+                        
+                        <TextBlock Text="מקצוע:"/>
+                        <ComboBox x:Name="cmbSubject" DisplayMemberPath="Subject_name" SelectedValuePath="Id" Height="35" Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="נושא / כותרת:"/>
+                        <TextBox x:Name="txtTitle" Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="תאריך:"/>
+                        <DatePicker x:Name="dpExamDate" Height="35" Margin="0,0,0,15"/>
+                        
+                        <Button x:Name="btnAddExam" Content="הוסף מבחן" Background="{DynamicResource PrimaryBrush}" Click="btnAddExam_Click" Margin="0,0,0,5"/>
+                        <Button x:Name="btnEditExamDetails" Content="עדכן פרטי מבחן נבחר" Background="#f39c12" Foreground="White" Click="btnEditExamDetails_Click" Visibility="Collapsed"/>
+                    </StackPanel>
+                </Border>
+                
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
